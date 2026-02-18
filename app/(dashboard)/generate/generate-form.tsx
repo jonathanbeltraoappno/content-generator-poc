@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import {
@@ -151,8 +152,11 @@ export function GenerateForm({
             </div>
           )}
           {success && (
-            <div className="rounded-md bg-green-500/10 p-3 text-sm text-green-800 dark:text-green-200">
-              {success}
+            <div className="rounded-md bg-green-500/10 p-3 text-sm text-green-800 dark:text-green-200 flex flex-col gap-2">
+              <span>{success}</span>
+              <Button asChild variant="outline" size="sm" className="w-fit">
+                <Link href="/review">View in Review</Link>
+              </Button>
             </div>
           )}
           <Button type="submit" disabled={loading || contentOptions.length === 0}>

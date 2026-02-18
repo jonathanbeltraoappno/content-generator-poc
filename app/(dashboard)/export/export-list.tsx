@@ -10,6 +10,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { ContentPreviewSheet } from "@/components/content-preview-sheet";
 
 type Variant = {
   id: string;
@@ -28,6 +29,7 @@ export function ExportList({
   className?: string;
 }) {
   const [copiedId, setCopiedId] = useState<string | null>(null);
+  const [previewVariant, setPreviewVariant] = useState<Variant | null>(null);
 
   const copyOne = (v: Variant) => {
     void navigator.clipboard.writeText(v.generated_text);
@@ -97,7 +99,7 @@ export function ExportList({
             <TableHead>Channel</TableHead>
             <TableHead>Audience</TableHead>
             <TableHead>Tone</TableHead>
-            <TableHead>Text</TableHead>
+            <TableHead>Preview</TableHead>
             <TableHead className="w-[100px]"></TableHead>
           </TableRow>
         </TableHeader>
@@ -108,7 +110,15 @@ export function ExportList({
               <TableCell>{v.channel}</TableCell>
               <TableCell>{v.audience}</TableCell>
               <TableCell>{v.tone}</TableCell>
-              <TableCell className="max-w-[300px] truncate">{v.generated_text}</TableCell>
+              <TableCell>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setPreviewVariant(v)}
+                >
+                  Preview
+                </Button>
+              </TableCell>
               <TableCell>
                 <Button
                   variant="ghost"
@@ -122,6 +132,15 @@ export function ExportList({
           ))}
         </TableBody>
       </Table>
+      <ContentPreviewSheet
+        open={!!previewVariant}
+        onOpenChange={(open) => !open && setPreviewVariant(null)}
+        text={previewVariant?.generated_text ?? ""}
+        channel={previewVariant?.channel}
+        audience={previewVariant?.audience}
+        tone={previewVariant?.tone}
+        sourceTitle={previewVariant?.sourceTitle}
+      />
     </div>
   );
 }

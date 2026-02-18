@@ -28,9 +28,16 @@ yarn-error.log*
 .env*.local
 .env
 
+# Docker data
+docker-data/
+supabase/.env
+n8n/.env
+
 # vercel
 .vercel
 
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+.agents/
+.cursor/

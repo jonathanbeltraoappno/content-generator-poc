@@ -1,6 +1,12 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -18,7 +24,9 @@ export default async function NewContentPage({
       <Card className="mt-6 max-w-2xl">
         <CardHeader>
           <CardTitle>New content</CardTitle>
-          <CardDescription>Add a piece of approved source content to the library.</CardDescription>
+          <CardDescription>
+            Add a piece of approved source content to the library.
+          </CardDescription>
         </CardHeader>
         <CardContent>
           {errorMessage && (
@@ -29,10 +37,15 @@ export default async function NewContentPage({
           <form action={createContentAction} className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="title">Title</Label>
-              <Input id="title" name="title" required placeholder="e.g. Q1 campaign headline" />
+              <Input
+                id="title"
+                name="title"
+                required
+                placeholder="e.g. Q1 campaign headline"
+              />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="body">Body</Label>
+              <Label htmlFor="body">Context</Label>
               <Textarea
                 id="body"
                 name="body"
@@ -48,7 +61,11 @@ export default async function NewContentPage({
               </div>
               <div className="space-y-2">
                 <Label htmlFor="campaign">Campaign (optional)</Label>
-                <Input id="campaign" name="campaign" placeholder="Campaign name" />
+                <Input
+                  id="campaign"
+                  name="campaign"
+                  placeholder="Campaign name"
+                />
               </div>
             </div>
             <div className="flex gap-2">

@@ -49,7 +49,11 @@ Open [http://localhost:3000](http://localhost:3000). Sign in (or sign up), then 
 
 ## n8n contract
 
-The app POSTs to `N8N_WEBHOOK_URL` with `{ title, body, channel, audience, tone }` and expects `{ variants: [ { channel, audience, tone, text } ] }`. See [docs/N8N_CONTRACT.md](docs/N8N_CONTRACT.md) for the full contract and guardrails notes.
+The app POSTs to `N8N_WEBHOOK_URL` with `{ baseContent, targetAudience, channel, tone }` and expects either `{ variants: [ { channel?, audience?, tone?, text } ] }` or a single `{ text }` / `{ output }` / `{ result }`. See [docs/N8N_CONTRACT.md](docs/N8N_CONTRACT.md) for the full contract and guardrails notes.
+
+## Improvements
+
+See [docs/IMPROVEMENTS.md](docs/IMPROVEMENTS.md) for the full improvement roadmap and status.
 
 ## Stack
 

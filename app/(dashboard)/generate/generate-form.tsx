@@ -12,6 +12,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { GenerationPresets } from "@/components/generation-presets";
 
 const CHANNELS = [
   { value: "email", label: "Email" },
@@ -146,6 +147,16 @@ export function GenerateForm({
               </SelectContent>
             </Select>
           </div>
+          <GenerationPresets
+            channel={channel}
+            audience={audience}
+            tone={tone}
+            onApply={(p) => {
+              setChannel(p.channel);
+              setAudience(p.audience);
+              setTone(p.tone);
+            }}
+          />
           {error && (
             <div className="rounded-md bg-destructive/10 p-3 text-sm text-destructive">
               {error}

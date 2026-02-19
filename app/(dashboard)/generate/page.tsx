@@ -1,4 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
+import { HealthCheck } from "@/components/health-check";
 import { GenerateForm } from "./generate-form";
 
 export default async function GeneratePage() {
@@ -14,6 +15,7 @@ export default async function GeneratePage() {
       <p className="text-muted-foreground mt-1">
         Select approved content and options, then generate channel-appropriate variants via n8n.
       </p>
+      <HealthCheck />
       <GenerateForm contentOptions={items ?? []} className="mt-6 max-w-xl" />
     </div>
   );

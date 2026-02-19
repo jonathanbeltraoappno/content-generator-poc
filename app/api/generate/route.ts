@@ -5,6 +5,26 @@ const CHANNELS = ["email", "web", "sms"] as const;
 const AUDIENCES = ["hcp", "patient", "internal"] as const;
 const TONES = ["professional", "friendly", "formal", "conversational"] as const;
 
+function mapN8nError(status: number, body: string): string {
+  if (status === 404) {
+    return "n8n webhook not found. Activate the workflow in n8n and ensure the webhook path matches N8N_WEBHOOK_URL.";
+  }
+  if (status === 403) {
+    return "n8n returned Forbidden. Check credentials (e.g. Requesty API key) in your n8n workflow.";
+  }
+  if (status === 401) {
+    return "n8n returned Unauthorized. Verify API keys in your n8n workflow.";
+  }
+  try {
+    const parsed = JSON.parse(body) as { message?: string; hint?: string };
+    const msg = parsed.message ?? parsed.hint;
+    if (msg) return msg;
+  } catch {
+    /* ignore */
+  }
+  return `Variant service returned ${status}. ${body.slice(0, 150)}`;
+}
+
 export async function POST(request: NextRequest) {
   let body: unknown;
   try {
@@ -89,10 +109,8 @@ export async function POST(request: NextRequest) {
 
   if (!res.ok) {
     const text = await res.text();
-    return NextResponse.json(
-      { error: "Variant service returned " + res.status + ": " + text.slice(0, 200) },
-      { status: 502 }
-    );
+    const friendly = mapN8nError(res.status, text);
+    return NextResponse.json({ error: friendly }, { status: 502 });
   }
 
   let data: {
